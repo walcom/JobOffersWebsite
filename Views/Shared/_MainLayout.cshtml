@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial scale=1" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">
+                    <img class="logo-size" src="~/images/search.png" />
+                </a>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/Home/Index">
+                            <i class="glyphicon glyphicon-home"></i>
+                            الرئيسية
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-folder-open"></i>
+                            أصناف العروض
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            حول الموقع
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-envelope"></i>
+                            اتصل بنا
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Partial Login -->
+                @Html.Partial("_Login")
+
+            </div>
+
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <div class="container">
+        <div class="row">
+            @RenderBody()
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <!-- Removed navbar navbar-fixed-bottom  -->
+    <footer class="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>
+                        <i class="glyphicon glyphicon-question-sign"> </i>
+                        من نحن؟
+                    </h3>
+                    <p>
+                        ABCDEF GHIJK LMNOPQR STUWXYZ <br />
+                        ABCDEF GHIJK LMNOPQR STUWXYZ <br />
+                        ABCDEF GHIJK LMNOPQR STUWXYZ <br />
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h3>
+                        <i class="glyphicon glyphicon-globe"></i>
+                        روابط هامة
+                    </h3>
+                    <ul>
+                        <li><a href="#">وظائف للقطاع العام</a></li>
+                        <li><a href="#">وظائف للقطاع الخاص</a></li>
+                        <li><a href="#">وظائف خارج البلاد</a></li>
+                        <li><a href="#">وظائف متنوعة</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h3>
+                        <i class="glyphicon glyphicon-envelope">  </i>
+                        تواصل معنا
+                    </h3>
+                    <ul>
+                        <li><a href="#">صفحتنا على الفيسبوك</a></li>
+                        <li><a href="#">تابعنا على تويتر</a></li>
+                        <li><a href="#">شاهدنا على اليوتيوب</a></li>
+                        <li><a href="#">اترك لنا رسالة</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="subfooter">
+                <span>جميع الحقوق محفوظة لموقع التوظيف - 2017</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/scripts/jquery.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+
+</body>
+</html>

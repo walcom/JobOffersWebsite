@@ -1,0 +1,46 @@
+﻿@model IEnumerable<JobOffersWebsite.Models.Category>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h3>مرحبا بك عزيزي الزائر</h3>
+    <p>مرحبا بك في موقع الباحثين عن وظائف باختلاف اصنافها. يمكنك نشر  وظيفة إن كنت  صاحب عمل، ويمكنك التقدم للوظيفة إذا كنت باحثاً عن عمل</p>
+    <p><a href="http://asp.net" class="btn btn-information btn-lg">المزيد من التفاصيل</a></p>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-default" style="padding:15px;">
+        <h1 class="panel-heading">@Html.DisplayFor(m => item.CategoryName)</h1>
+        <h5>@Html.DisplayFor(m => item.CategoryDescription)</h5>
+
+        <div class="row">
+            @foreach (var subItem in item.Jobs)
+                {
+                <div class="col-md-3 " style="margin-left:20px; margin-bottom:30px; height: 380px;">
+                    <img src="~/Uploads/@subItem.JobImage" class="thumbnail" />
+                    <h3>@Html.DisplayFor(m => subItem.JobName)</h3>
+                    <h5>@Html.DisplayFor(m => subItem.JobDescription)</h5>
+                    <button class="btn btn-information">التفاصيل</button>
+                </div>
+
+            }
+        </div>
+    </div>
+}
+
+
+
+
+@*<div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>*@
+@*</div>*@
