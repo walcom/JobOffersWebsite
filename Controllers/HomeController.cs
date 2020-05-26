@@ -14,8 +14,9 @@ namespace WebApplication1.Controllers
 
         public ActionResult Index()
         {
-            var list = db.Categories.ToList();
-            return View(list);
+            //var list = db.Categories.ToList();
+            //return View(list);
+            return View(db.Categories.ToList());
         }
 
         public ActionResult About()

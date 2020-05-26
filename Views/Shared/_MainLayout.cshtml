@@ -58,7 +58,7 @@
     </nav>
     <!-- Navbar -->
     <div class="container">
-        <div class="row">
+        <div class="row" style="">
             @RenderBody()
         </div>
     </div>
@@ -66,7 +66,7 @@
 
     <!-- Footer -->
     <!-- Removed navbar navbar-fixed-bottom  -->
-    <footer class="myFooter">
+    <footer class="navbar myFooter">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -114,5 +114,6 @@
     <script src="~/scripts/jquery.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
 
+    @RenderSection("scripts", required: false);
 </body>
 </html>

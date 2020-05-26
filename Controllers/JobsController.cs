@@ -94,14 +94,32 @@ namespace JobOffersWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,JobName,JobDescription,JobImage,CategoryID")] Job job)
+        public ActionResult Edit(Job job, HttpPostedFileBase upload) //[Bind(Include = "Id,JobName,JobDescription,JobImage,CategoryID")] Job job)
         {
             if (ModelState.IsValid)
             {
+                string oldFile = "";
+                if (!string.IsNullOrEmpty(job.JobImage))
+                {
+                    oldFile = Path.Combine(Server.MapPath("~/Uploads"), job.JobImage); //job.JobImage;
+                    System.IO.File.Delete(oldFile);
+                }
+
+                if (upload != null)
+                {
+                    DateTime t = DateTime.Now;                    
+
+                    string fileName = string.Format("{0}{1}_{2}", DateTime.Today.ToString("yyyyMMdd"), DateTime.Now.ToString("hhmmss"), upload.FileName);
+                    string path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                    upload.SaveAs(path);
+                    job.JobImage = fileName;
+                }
+
                 db.Entry(job).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "CategoryName", job.CategoryID);
             return View(job);
         }

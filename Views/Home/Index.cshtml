@@ -18,8 +18,8 @@
         <div class="row">
             @foreach (var subItem in item.Jobs)
                 {
-                <div class="col-md-3 " style="margin-left:20px; margin-bottom:30px; height: 380px;">
-                    <img src="~/Uploads/@subItem.JobImage" class="thumbnail" />
+                <div class="col-md-3" style="margin-left:20px; margin-bottom:30px; height: 380px;">
+                    <img class="thumbnail" src="~/Uploads/@subItem.JobImage" />
                     <h3>@Html.DisplayFor(m => subItem.JobName)</h3>
                     <h5>@Html.DisplayFor(m => subItem.JobDescription)</h5>
                     <button class="btn btn-information">التفاصيل</button>
