@@ -221,8 +221,13 @@
     <Compile Include="Migrations\202005180255507_AddColumnToUsers.Designer.cs">
       <DependentUpon>202005180255507_AddColumnToUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005272131568_AppyJobs.cs" />
+    <Compile Include="Migrations\202005272131568_AppyJobs.Designer.cs">
+      <DependentUpon>202005272131568_AppyJobs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplyForJob.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Job.cs" />
@@ -305,6 +310,12 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Apply.cshtml" />
+    <Content Include="Views\Home\GetJobsByUser.cshtml" />
+    <Content Include="Views\Home\DetailsOfJob.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -320,6 +331,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005180255507_AddColumnToUsers.resx">
       <DependentUpon>202005180255507_AddColumnToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005272131568_AppyJobs.resx">
+      <DependentUpon>202005272131568_AppyJobs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

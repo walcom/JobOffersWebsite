@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JobOffersWebsite.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +21,79 @@ namespace WebApplication1.Controllers
             return View(db.Categories.ToList());
         }
 
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
+            }
+
+            Job job = db.Jobs.Find(id);
+            if (job == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(job);
+        }
+
+        [Authorize]
+        public ActionResult Apply(int id)
+        {
+            Session["JobId"] = id;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Apply(int id, string Message)
+        {
+            var userID = User.Identity.GetUserId();
+            //var jobID = (int)Session["JobId"];
+
+            var check = db.ApplyForJob.Where(a => a.JobId == id && a.UserId == userID).ToList();
+            if (check.Count() < 1)
+            {
+                var job = new ApplyForJob();
+                job.UserId = userID;
+                job.JobId = id; // jobID;
+                job.Message = Message;
+                job.ApplyDate = DateTime.Now;
+
+                db.ApplyForJob.Add(job);
+                db.SaveChanges();
+
+                ViewBag.Result = "تم التقدم بنجاح";
+            }
+            else
+                ViewBag.Result = "المعذرة، لقد سبق وتقدمت إلى نفس الوظيفة";
+
+            return View();
+            //return RedirectToAction("Index");
+        }
+
+
+        [Authorize]
+        public ActionResult GetJobsByUser()
+        {
+            var userID = User.Identity.GetUserId();
+            var jobs = db.ApplyForJob.Where(a => a.UserId == userID);
+
+            return View(jobs.ToList());
+        }
+
+
+        public ActionResult DetailsOfJob(int id)
+        {
+            var job = db.ApplyForJob.Find(id);
+            if (job == null)
+                return HttpNotFound();
+
+            return View(job);
+        }
+
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -32,5 +107,6 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+
     }
 }

@@ -5,9 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using System.Data.Entity;
 
 namespace JobOffersWebsite.Controllers
 {
+    [Authorize(Roles = "Admins")]
     public class RolesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -57,20 +59,30 @@ namespace JobOffersWebsite.Controllers
         }
 
         // GET: Roles/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var role = db.Roles.Find(id);
+            if (role == null)
+                return HttpNotFound();
+
+            return View(role);
         }
 
         // POST: Roles/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include = "Id, Name")] IdentityRole role) //int id, FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    db.Entry(role).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                return View(role);
             }
             catch
             {
@@ -79,25 +91,34 @@ namespace JobOffersWebsite.Controllers
         }
 
         // GET: Roles/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            var role = db.Roles.Find(id);
+            if (role == null)
+                return HttpNotFound();
+
+            return View(role);
         }
 
         // POST: Roles/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(IdentityRole role) //int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            //try
+            //{
+            // TODO: Add delete logic here
+            var r = db.Roles.Find(role.Id);
+            db.Roles.Remove(r);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View(role);
+            //}
         }
+
+
     }
+    
 }

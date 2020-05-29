@@ -10,5 +10,11 @@ namespace WebApplication1
         {
             ConfigureAuth(app);
         }
+
+        public void CreateDefaultRolesAndUsers()
+        {
+
+        }
+
     }
 }

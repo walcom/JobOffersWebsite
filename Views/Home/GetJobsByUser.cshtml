@@ -1,0 +1,47 @@
+﻿@model IEnumerable<JobOffersWebsite.Models.ApplyForJob>
+
+<h2>جميع الوظائف التي تقدمت إليها</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.job.JobName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user.UserType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.job.JobName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.user.UserType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplyDate)
+            </td>
+            <td>
+                @Html.ActionLink("تعديل", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("تفاصيل", "DetailsOfJob", new { id = item.Id }) |
+                @Html.ActionLink("حذف", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
