@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -83,6 +84,23 @@ namespace WebApplication1.Controllers
             return View(jobs.ToList());
         }
 
+        [Authorize]
+        public ActionResult GetJobsByPublisher()
+        {
+            var userID = User.Identity.GetUserId();
+            var jobs = from app in db.ApplyForJob
+                       join job in db.Jobs on app.JobId equals job.Id
+                       where job.User.Id == userID
+                       select app;
+
+            var grouped = from j in jobs
+                          group j by j.job.JobName into gr
+                          select new JobsViewModel { JobTitle = gr.Key, Items = gr };
+
+            //return View(jobs.ToList());
+            return View(grouped.ToList());
+        }
+
 
         public ActionResult DetailsOfJob(int id)
         {
@@ -94,19 +112,70 @@ namespace WebApplication1.Controllers
         }
 
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
+        public ActionResult Edit(int id)
+        {
+            var j = db.ApplyForJob.Find(id);
+            if (j == null)
+                return HttpNotFound();
+
+            return View(j);
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult Edit(ApplyForJob j)
         {
-            ViewBag.Message = "Your contact page.";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    j.ApplyDate = DateTime.Now;
+                    db.Entry(j).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("GetJobsByUser");
+                }
 
-            return View();
+                return View(j);
+            }
+            catch
+            {
+                return View(j);
+            }
         }
+
+        public ActionResult Delete(int id)
+        {
+            var j = db.ApplyForJob.Find(id);
+            if (j == null)
+                return HttpNotFound();
+
+            return View(j);
+        }
+
+        // POST: Roles/Delete/5
+        [HttpPost]
+        public ActionResult Delete(Job j)
+        {           
+            var r = db.ApplyForJob.Find(j.Id);
+            db.ApplyForJob.Remove(r);
+            db.SaveChanges();
+            return RedirectToAction("GetJobsByUser");          
+        }
+
+
+        //public ActionResult About()
+        //{
+        //    ViewBag.Message = "Your application description page.";
+
+        //    return View();
+        //}
+
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
+
+        //    return View();
+        //}
 
     }
 }

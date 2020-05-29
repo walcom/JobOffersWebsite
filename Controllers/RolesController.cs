@@ -74,7 +74,6 @@ namespace JobOffersWebsite.Controllers
         {
             try
             {
-                // TODO: Add update logic here
                 if (ModelState.IsValid)
                 {
                     db.Entry(role).State = EntityState.Modified;
@@ -86,7 +85,7 @@ namespace JobOffersWebsite.Controllers
             }
             catch
             {
-                return View();
+                return View(role);
             }
         }
 
