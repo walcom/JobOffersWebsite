@@ -177,5 +177,21 @@ namespace WebApplication1.Controllers
         //    return View();
         //}
 
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Search(string searchName)
+        {
+            var result = db.Jobs.Where(a => a.JobName.Contains(searchName) || a.JobDescription.Contains(searchName) ||
+            a.Category.CategoryName.Contains(searchName) || a.Category.CategoryDescription.Contains(searchName)).ToList();
+
+            return View(result);
+        }
+
+
     }
 }

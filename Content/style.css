@@ -72,3 +72,32 @@ body{
     width: 48px;
     height: 48px;
 }
+
+
+#searchName {
+    width: 130px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    background-image: url('../images/icons8-search.png');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    padding: 12px 20px 12px 12px;
+    /*margin-top: -15px;*/
+    transition: width 0.4s ease-in-out;
+}
+
+#searchName:focus{
+    width:100%;
+}
+
+.img-size{
+    font-size:90px;
+}
+
+.navbar-user {
+    padding: 10px;
+    padding-bottom: 0px;
+    width: 350px;
+}

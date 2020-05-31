@@ -184,6 +184,26 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
+
+        public ActionResult EditProfile()
+        {
+            var userID = User.Identity.GetUserId();
+            var user = db.Users.Where(a => a.Id == userID).SingleOrDefault();
+
+            EditProfileViewModel profile = new EditProfileViewModel();
+            profile.UserName = user.UserName;
+            profile.Email = user.Email;
+            return View(profile);
+        }
+
+        [HttpPost]
+        public ActionResult EditProfile(EditProfileViewModel profile)
+        {          
+            return View();
+        }
+
+
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
