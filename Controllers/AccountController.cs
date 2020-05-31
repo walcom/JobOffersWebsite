@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApplication1.Models;
+using System.Data.Entity;
 
 namespace WebApplication1.Controllers
 {
@@ -198,8 +199,25 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         public ActionResult EditProfile(EditProfileViewModel profile)
-        {          
-            return View();
+        {
+            var userID = User.Identity.GetUserId();
+            var currentUser = db.Users.Where(a => a.Id == userID).SingleOrDefault();
+
+            if (!UserManager.CheckPassword(currentUser, profile.Password))
+                ViewBag.Message = "كلمة السر الحالية غير صحيحة";
+            else
+            {
+                var newPasswordHash = UserManager.PasswordHasher.HashPassword(profile.NewPassword);
+                currentUser.UserName = profile.UserName;
+                currentUser.Email = profile.Email;
+                currentUser.PasswordHash = newPasswordHash;
+
+                db.Entry(currentUser).State = EntityState.Modified;
+                db.SaveChanges();
+                ViewBag.Message = "تم الحفظ بنجاح";
+            }
+
+            return View(profile);
         }
 
 

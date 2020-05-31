@@ -6,6 +6,7 @@
 }
 
 <h2>إضافة وظيفة جديدة</h2>
+<script src="~/scripts/ckeditor/ckeditor.js"></script>
 
 @using (Html.BeginForm("Create", "Jobs", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -26,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.JobDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.JobDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.JobDescription, new { htmlAttributes = new { @class = "form-control", @id = "JobDescription" } })
                 @Html.ValidationMessageFor(model => model.JobDescription, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -95,5 +96,8 @@
                 }
             });
         });
+
+
+        CKEDITOR.replace("JobDescription");
     </script>
 }
