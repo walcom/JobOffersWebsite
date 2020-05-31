@@ -3,7 +3,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<div class="jumbotron alert alert-info">
     <h3>مرحبا بك عزيزي الزائر</h3>
     <p>مرحبا بك في موقع الباحثين عن وظائف باختلاف اصنافها. يمكنك نشر  وظيفة إن كنت  صاحب عمل، ويمكنك التقدم للوظيفة إذا كنت باحثاً عن عمل</p>
     <p><a href="http://asp.net" class="btn btn-information btn-lg">المزيد من التفاصيل</a></p>
@@ -11,19 +11,22 @@
 
 @foreach (var item in Model)
 {
-    <div class="panel panel-default" style="padding:15px;">
-        <h1 class="panel-heading">@Html.DisplayFor(m => item.CategoryName)</h1>
-        <h5>@Html.DisplayFor(m => item.CategoryDescription)</h5>
+    <div class="panel panel-info">
+        <div class="panel-heading"><h1> @Html.DisplayFor(m => item.CategoryName) </h1></div>
 
-        <div class="row">
+        <div class="row panel-body">
+            <h5>@Html.DisplayFor(m => item.CategoryDescription)</h5>
+
             @foreach (var subItem in item.Jobs)
                 {
-                <div class="col-md-3" style="margin-left:20px; margin-bottom:30px; height: 380px;">
+                <div class="col-md-3" style="margin-left:20px; margin-bottom:30px; min-height: 380px;">
                     <img class="thumbnail" src="~/Uploads/@subItem.JobImage" />
                     <h3>@Html.DisplayFor(m => subItem.JobName)</h3>
-                    <h5>@Html.DisplayFor(m => subItem.JobDescription)</h5>
+                    @Html.Raw(HttpUtility.HtmlDecode(Html.DisplayFor(m => subItem.JobDescription).ToString()))
+                    <br />
+                    @*<h5>@Html.DisplayFor(m => subItem.JobDescription)</h5>*@
                     @*<button class="btn btn-information">التفاصيل</button>*@
-                    @Html.ActionLink("التفاصيل", "Details", new { id=subItem.Id }, new {@class="btn btn-primary" })
+                    @Html.ActionLink("التفاصيل", "Details", new { id = subItem.Id }, new { @class = "btn btn-primary" })
                 </div>
 
             }
