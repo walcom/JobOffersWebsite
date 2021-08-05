@@ -160,7 +160,8 @@ namespace WebApplication1.Controllers
             {
                 //ViewBag.UserType = new SelectList(new[] { "ناشر", "باحث" });
                 //ViewBag.UserType = new SelectList(db.Roles, "Name", "Name"); //new[] { "ناشر", "باحث" });
-                ViewBag.UserType = new SelectList(db.Roles.Where(a => !a.Name.Contains("Administrators")).ToList(), "Name", "Name");
+                //ViewBag.UserType = new SelectList(db.Roles.Where(a => !a.Name.Contains("Administrators")).ToList(), "Name", "Name");
+                ViewBag.UserType = new SelectList(db.Roles.ToList(), "Name", "Name");
 
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, UserType = model.UserType };
                 var result = await UserManager.CreateAsync(user, model.Password);
